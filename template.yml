@@ -1,0 +1,29 @@
+Resources:
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-001843b876406202a
+      SecurityGroups:
+        - Ref: sg-06db2f23f17f2bc7b
+      KeyName:
+      Tags:
+        - Key: Name
+          Value: MyEC2Instance
+
+  MySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: MySecurityGroup
+      Description: My security group description
+      VpcId: vpc-123456789
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+          Description: Allow HTTP traffic
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          CidrIp: 0.0.0.0/0
+          Description: Allow all outbound traffic
